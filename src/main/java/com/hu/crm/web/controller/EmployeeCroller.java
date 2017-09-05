@@ -1,0 +1,12 @@
+package com.hu.crm.web.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@Controller
+public class EmployeeCroller {
+    @RequestMapping("/employee")
+    public String index() {
+        return "employee";
+    }
+}

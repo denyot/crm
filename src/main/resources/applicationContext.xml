@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+			http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+    <!-- 0.获取数据库配置文件 -->
+    <context:property-placeholder location="classpath:druid.properties"/>
+    <!-- 1.配置数据连接池 -->
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init"
+          destroy-method="close">
+        <property name="driverClassName" value="${jdbc.driverClassName}"/>
+        <property name="url" value="${jdbc.url}"/>
+        <property name="username" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+        <property name="maxActive" value="${jdbc.maxActive}"/>
+        <!-- druid解密/监控信息 -->
+        <property name="filters" value="config,stat"/>
+        <property name="connectionProperties" value="config.decrypt=true"/>
+    </bean>
+    <!--2.sqlsessionFactory-->
+    <bean id="sqlSession" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <!--引用数据源-->
+        <property name="dataSource" ref="dataSource"/>
+        <!--引用mybatis配置文件-->
+        <property name="configLocation" value="classpath:mybatis.cfg.xml"/>
+        <!--引入Mapper文件-->
+        <property name="mapperLocations" value="classpath:com/hu/crm/mapper/*Mapper.xml"/>
+    </bean>
+    <!--3.事务管理器-->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+    <!--4.事务模板-->
+    <tx:advice id="txAdvice" transaction-manager="transactionManager">
+        <tx:attributes>
+            <tx:method name="get*" read-only="true"/>
+            <tx:method name="list*" read-only="true"/>
+            <tx:method name="query*" read-only="true"/>
+            <tx:method name="select*" read-only="true"/>
+            <tx:method name="*"/>
+        </tx:attributes>
+    </tx:advice>
+    <!--5.aop相关配置-->
+    <aop:config>
+        <aop:advisor advice-ref="txAdvice" pointcut="execution(* com.hu.crm.service.*Service.*(..))" />
+    </aop:config>
+    <!--6.开启注解扫描-->
+    <context:component-scan base-package="com.hu.crm"/>
+    <!--7.注解解析器-->
+    <context:annotation-config/>
+    <!--8.开启mapper接口扫描器，并注入sqlSession-->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.hu.crm.mapper"/>
+        <property name="sqlSessionFactoryBeanName" value="sqlSession"/>
+    </bean>
+</beans>
