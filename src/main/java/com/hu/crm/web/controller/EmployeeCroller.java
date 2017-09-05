@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class EmployeeCroller {
     @RequestMapping("/employee")
     public String index() {
+        System.out.println("EmployeeCroller.index");
         return "employee";
     }
 }
