@@ -20,7 +20,9 @@ public class EmployeeServiceImpl implements IEmployeeService {
 
     @Override
     public int insert(Employee record) {
-        return employeeMapper.insert(record);
+        int insert = employeeMapper.insert(record);
+//        int i = 1/0;模拟异常,测试事务是否配置成功
+        return insert;
     }
 
     @Override

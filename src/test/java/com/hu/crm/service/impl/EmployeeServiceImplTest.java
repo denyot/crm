@@ -16,13 +16,14 @@ public class EmployeeServiceImplTest {
     private IEmployeeService employeeService;
     @Test
     public void deleteByPrimaryKey() throws Exception {
-        Employee employee = new Employee();
-        employeeService.insert(employee);
+
     }
 
     @Test
     public void insert() throws Exception {
-
+        Employee employee = new Employee();
+        employee.setEmail("222");
+        employeeService.insert(employee);
     }
 
     @Test
