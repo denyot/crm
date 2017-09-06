@@ -13,9 +13,12 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="msapplication-tap-highlight" content="no">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+    <link rel="stylesheet" type="text/css" href="./plugin/jquery-easyui/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="./plugin/jquery-easyui/themes/icon.css">
     <script type="text/javascript" src="./plugin/jquery-easyui/jquery.min.js"></script>
-    <script type="text/javascript" src="./js/views/employee.js"></script>
+    <script type="text/javascript" src="./plugin/jquery-easyui/jquery.easyui.min.js"></script>
     <script type="text/javascript" src="./plugin/jquery-easyui/locale/easyui-lang-zh_CN.js"></script>
+    <script type="text/javascript" src="./js/views/employee.js"></script>
     <!-- 页面基本设置禁止随意更改 -->
     <!-- 基础CSS类库可随意更改 -->
     <link rel="stylesheet" type="text/css" href="css/less.css">
@@ -41,7 +44,7 @@
                 if (data.success) {
                     window.location.href = "/index";
                 } else {
-                    alert(data.msg)
+                   $(".error_msg").prop("style","display:block")
                 }
             }, "json");
         }
@@ -72,7 +75,7 @@
                             <div class="ui-form-item loginPassword">
                                 <input type="password" name="password" value="1" placeholder="请输入密码">
                             </div>
-                            <span class="error_xinxi" style="display:none;">您输入的密码不正确，请重新输入</span> <a
+                            <span class="error_msg" style="display:none;" >账号或密码错误,请重新输入</span> <a
                                 class="btnStyle btn-register" onClick="loginForm()"> 立即登录</a></div>
                     </div>
                 </div>

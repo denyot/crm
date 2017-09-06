@@ -15,8 +15,8 @@
     <link rel="stylesheet" type="text/css" href="../../plugin/jquery-easyui/themes/icon.css">
     <script type="text/javascript" src="../../plugin/jquery-easyui/jquery.min.js"></script>
     <script type="text/javascript" src="../../plugin/jquery-easyui/jquery.easyui.min.js"></script>
-    <script type="text/javascript" src="../../js/views/employee.js"></script>
     <script type="text/javascript" src="../../plugin/jquery-easyui/locale/easyui-lang-zh_CN.js"></script>
+    <script type="text/javascript" src="../../js/views/employee.js"></script>
 </head>
 <body>
 <table id="employee_datagrid"></table>

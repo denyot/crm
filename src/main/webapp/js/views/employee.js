@@ -11,10 +11,14 @@ $(function () {
         toolbar: '#employee_datagrid_btn',
         columns: [
             [
-                {field: 'name', title: '姓名', width: 1, align: 'center'},
-                {field: 'age', title: '年龄', width: 1, align: 'center'},
-                {field: 'dept', title: '部门', width: 1, align: 'center', formatter: deptFormatter},
-                {field: 'email', title: '邮箱', width: 1, align: 'center'}
+                {field: 'username', title: '账号', width: 1, align: 'center'},
+                {field: 'realName', title: '姓名', width: 1, align: 'center'},
+                {field: 'tel', title: '电话', width: 1, align: 'center', formatter: deptFormatter},
+                {field: 'email', title: '邮箱', width: 1, align: 'center'},
+                {field: 'dept', title: '部门', width: 1, align: 'center'},
+                {field: 'inputTime', title: '入职时间', width: 1, align: 'center'},
+                {field: 'state', title: '状态', width: 1, align: 'center'},
+                {field: 'admin', title: '是否超级管理员', width: 1, align: 'center'}
             ]
         ]
     });
