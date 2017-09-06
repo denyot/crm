@@ -14,6 +14,8 @@
     <meta name="msapplication-tap-highlight" content="no">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
     <script type="text/javascript" src="./plugin/jquery-easyui/jquery.min.js"></script>
+    <script type="text/javascript" src="./js/views/employee.js"></script>
+    <script type="text/javascript" src="./plugin/jquery-easyui/locale/easyui-lang-zh_CN.js"></script>
     <!-- 页面基本设置禁止随意更改 -->
     <!-- 基础CSS类库可随意更改 -->
     <link rel="stylesheet" type="text/css" href="css/less.css">
@@ -25,6 +27,7 @@
     <link rel="stylesheet" type="text/css" href="css/ie.css">
     <![endif]-->
     <script type="text/javascript">
+        <%--回车登陆--%>
         $(document).keyup(function (event) {
             console.log(event.keyCode)
             if (event.keyCode == 13) {
@@ -32,6 +35,7 @@
             }
         });
 
+        //登陆功能
         function loginForm() {
             $.post("/login", $("form").serialize(), function (data) {
                 if (data.success) {
