@@ -9,21 +9,21 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import static org.junit.Assert.*;
-@RunWith(SpringJUnit4ClassRunner.class)
+@RunWith(SpringJUnit4ClassRunner.class)   //spring测试
 @ContextConfiguration("classpath:applicationContext.xml")
 public class EmployeeServiceImplTest {
     @Autowired
     private IEmployeeService employeeService;
     @Test
-    public void deleteByPrimaryKey() throws Exception {
-
-    }
-
-    @Test
     public void insert() throws Exception {
         Employee employee = new Employee();
         employee.setEmail("222");
         employeeService.insert(employee);
+    }
+
+    @Test
+    public void deleteByPrimaryKey() throws Exception {
+
     }
 
     @Test
