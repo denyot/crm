@@ -39,4 +39,10 @@ public class EmployeeServiceImpl implements IEmployeeService {
     public int updateByPrimaryKey(Employee record) {
         return employeeMapper.updateByPrimaryKey(record);
     }
+
+    @Override
+    public Employee login(String username, String password) {
+        Employee current = employeeMapper.login(username,password);
+        return current;
+    }
 }

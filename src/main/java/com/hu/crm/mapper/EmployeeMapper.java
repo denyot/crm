@@ -1,6 +1,7 @@
 package com.hu.crm.mapper;
 
 import com.hu.crm.domain.Employee;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 public interface EmployeeMapper {
@@ -13,4 +14,7 @@ public interface EmployeeMapper {
     List<Employee> selectAll();
 
     int updateByPrimaryKey(Employee record);
+
+    Employee login(@Param("username") String username, @Param("password") String password);
+
 }
