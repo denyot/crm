@@ -51,6 +51,7 @@
     </script>
 </head>
 <body>
+
 <div class="wrapper" style="background-color: white;">
     <div class="login-top">
         <div style="height: 60px;background-color: white;">
@@ -73,7 +74,7 @@
                                 <input type="username" name="username" value="admin" placeholder="用户名">
                             </div>
                             <div class="ui-form-item loginPassword">
-                                <input type="password" name="password" value="1" placeholder="请输入密码">
+                                <input type="password" name="password" value="123" placeholder="请输入密码">
                             </div>
                             <span class="error_msg" style="display:none;" >账号或密码错误,请重新输入</span> <a
                                 class="btnStyle btn-register" onClick="loginForm()"> 立即登录</a></div>

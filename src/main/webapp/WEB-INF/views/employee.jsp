@@ -11,52 +11,65 @@
 <head>
     <meta charset="UTF-8">
     <title>员工管理</title>
-    <link rel="stylesheet" type="text/css" href="../../plugin/jquery-easyui/themes/default/easyui.css">
-    <link rel="stylesheet" type="text/css" href="../../plugin/jquery-easyui/themes/icon.css">
-    <script type="text/javascript" src="../../plugin/jquery-easyui/jquery.min.js"></script>
-    <script type="text/javascript" src="../../plugin/jquery-easyui/jquery.easyui.min.js"></script>
-    <script type="text/javascript" src="../../plugin/jquery-easyui/locale/easyui-lang-zh_CN.js"></script>
+    <%@include file="common.jsp" %>
     <script type="text/javascript" src="../../js/views/employee.js"></script>
 </head>
 <body>
 <table id="employee_datagrid"></table>
 <div id="employee_datagrid_btn">
     <a class="easyui-linkbutton" iconCls='icon-add' plain="true" onclick="add()">增加</a>
-    <a class="easyui-linkbutton" iconCls='icon-remove' plain="true" onclick="remove()">删除</a>
-    <a class="easyui-linkbutton" iconCls='icon-edit' plain="true" onclick="edit()">编辑</a>
+    <a id="employee_datagrid_remove" class="easyui-linkbutton" iconCls='icon-remove' plain="true"
+       onclick="remove()">离职</a>
+    <a id="employee_datagrid_edit" class="easyui-linkbutton" iconCls='icon-edit' plain="true" onclick="edit()">编辑</a>
     <a class="easyui-linkbutton" iconCls='icon-reload' plain="true" onclick="reload()">刷新</a>
+    <div>
+        关键字<input name="keyword"><a class="easyui-linkbutton" iconCls="icon-search">搜索</a>
+    </div>
 </div>
 <div id="employee_dialog_btn">
     <a class="easyui-linkbutton" iconCls='icon-save' onclick="save()">保存</a>
     <a class="easyui-linkbutton" iconCls='icon-cancel' onclick="cancel()">取消</a>
 </div>
 <div id="employee_dialog">
-    <form  id="employee_form" action="" method="post">
-        <table align="center" style="margin-top: 15px;">
+    <form id="employee_form" action="" method="post">
+        <table>
             <input type="hidden" name="id">
             <tr>
-                <td>姓名</td>
-                <td><input name="name"></td>
+                <td>账户</td>
+                <td><input name="username"></td>
                 <br>
             </tr>
             <tr>
-                <td>年龄</td>
-                <td><input  name="age"></td>
+                <td>姓名</td>
+                <td><input name="realname"></td>
                 <br>
             </tr>
             <tr>
                 <td>邮箱</td>
-                <td><input  name="email"></td>
+                <td><input name="email"></td>
+                <br>
+            </tr>
+            <tr>
+                <td>电话</td>
+                <td><input name="tel"></td>
+                <br>
+            </tr>
+            <tr>
+                <td>入职时间</td>
+                <td><input name="inputtime" class="easyui-datebox"></td>
                 <br>
             </tr>
             <tr>
                 <td>部门</td>
                 <td>
-                    <select name="dept.id">
-                        <option value="1">设计部</option>
-                        <option value="2">总经办</option>
-                        <option value="3">销售部</option>
-                    </select>
+                    <input class="easyui-combobox" name="dept.id"
+                           data-options="
+					url:'/department_selectAll',
+					method:'get',
+					valueField:'id',
+					textField:'name',
+					panelHeight:'auto'
+			">
                 </td>
             </tr>
         </table>

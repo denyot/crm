@@ -4,11 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <link rel="stylesheet" type="text/css" href="../../plugin/jquery-easyui/themes/default/easyui.css">
-    <link rel="stylesheet" type="text/css" href="../../plugin/jquery-easyui/themes/icon.css">
-    <script type="text/javascript" src="../../plugin/jquery-easyui/jquery.min.js"></script>
-    <script type="text/javascript" src="../../plugin/jquery-easyui/jquery.easyui.min.js"></script>
-    <script type="text/javascript" src="../../plugin/jquery-easyui/locale/easyui-lang-zh_CN.js"></script>
+    <%@include file="common.jsp"%>
     <script type="text/javascript" src="../../js/views/index.js"></script>
 </head>
 <body class="easyui-layout">

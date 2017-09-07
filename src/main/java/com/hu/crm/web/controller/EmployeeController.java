@@ -1,6 +1,8 @@
 package com.hu.crm.web.controller;
 
 import com.hu.crm.domain.Employee;
+import com.hu.crm.page.PageResult;
+import com.hu.crm.query.EmployeeQueryObject;
 import com.hu.crm.service.IEmployeeService;
 import com.hu.crm.util.UserContext;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,14 @@ public class EmployeeController {
     @Autowired
     private IEmployeeService employeeService;
 
+    /**
+     * 登陆
+     *
+     * @param username 账号
+     * @param password 密码
+     * @param session
+     * @return
+     */
     @RequestMapping("/login")
     @ResponseBody
     public Map<String, Object> login(String username, String password, HttpSession session) {
@@ -33,11 +43,59 @@ public class EmployeeController {
         return result;
     }
 
-    @RequestMapping("/employee")
-    public String list() {
-        System.out.println("EmployeeCroller.index");
-        return "employee";
+    @RequestMapping("/employee_list")
+    @ResponseBody
+    public PageResult list(EmployeeQueryObject qo) {
+        PageResult result = employeeService.queryForPage(qo);
+        return result;
     }
+
+    @RequestMapping("/employee_save")
+    @ResponseBody
+    public Map<String, Object> save(Employee employee) {
+        Map<String, Object> result = new HashMap<>();
+        try {
+            employee.setAdmin(false);
+            employee.setPassword("1");
+            employee.setState(true);
+            employeeService.insert(employee);
+            result.put("success", true);
+            result.put("msg", "保存成功");
+        } catch (Exception e) {
+            result.put("success", false);
+            result.put("msg", "保存异常请联系管理员");
+        }
+        return result;
+    }
+    @RequestMapping("/employee_update")
+    @ResponseBody
+    public Map<String, Object> update(Employee employee) {
+        Map<String, Object> result = new HashMap<>();
+        try {
+            employeeService.updateByPrimaryKey(employee);
+            result.put("success", true);
+            result.put("msg", "更新成功");
+        } catch (Exception e) {
+            result.put("success", false);
+            result.put("msg", "更新异常,请联系管理员");
+        }
+        return result;
+    }
+    @RequestMapping("/employee_delete")
+    @ResponseBody
+    public Map<String, Object> update(Long id) {
+        Map<String, Object> result = new HashMap<>();
+        try {
+            employeeService.updateState(id);
+            result.put("success", true);
+            result.put("msg", "离职成功");
+        } catch (Exception e) {
+            result.put("success", false);
+            result.put("msg", "离职异常,请联系管理员");
+        }
+        return result;
+    }
+
 
     @RequestMapping("/index")
     public String index() {
@@ -47,5 +105,10 @@ public class EmployeeController {
     @RequestMapping("/department")
     public String department() {
         return "department";
+    }
+
+    @RequestMapping("/employee")
+    public String employee() {
+        return "employee";
     }
 }

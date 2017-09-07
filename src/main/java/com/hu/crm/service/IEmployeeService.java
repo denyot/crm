@@ -1,6 +1,8 @@
 package com.hu.crm.service;
 
 import com.hu.crm.domain.Employee;
+import com.hu.crm.page.PageResult;
+import com.hu.crm.query.EmployeeQueryObject;
 
 import java.util.List;
 public interface IEmployeeService {
@@ -15,5 +17,9 @@ public interface IEmployeeService {
     int updateByPrimaryKey(Employee record);
 
     Employee login(String username, String password);
+
+    PageResult queryForPage(EmployeeQueryObject qo);
+
+    void updateState(Long id);
 
 }

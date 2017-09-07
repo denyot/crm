@@ -1,9 +1,11 @@
 package com.hu.crm.mapper;
 
 import com.hu.crm.domain.Employee;
+import com.hu.crm.query.EmployeeQueryObject;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+
 public interface EmployeeMapper {
     int deleteByPrimaryKey(Long id);
 
@@ -16,5 +18,12 @@ public interface EmployeeMapper {
     int updateByPrimaryKey(Employee record);
 
     Employee login(@Param("username") String username, @Param("password") String password);
+
+
+    List<Employee> queryForPage(EmployeeQueryObject qo);
+
+    Long queryForPageCount(EmployeeQueryObject qo);
+
+    void updateState(Long id);
 
 }
