@@ -8,7 +8,7 @@ import lombok.Setter;
 public class EmployeeQueryObject {
     private Long page;
     private Long rows;
-
+    private String keyword;
     public Long getStart() {
         return (this.page - 1) * rows;
 

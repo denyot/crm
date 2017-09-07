@@ -53,7 +53,16 @@ function stateFormatter(value, row, index) {
     }
     return "<font color=\"red\">" + "离职" + " </font>";
 }
-
+//按键事件
+$(document).keyup(function (event) {
+    console.log(event.keyCode)
+    if (event.keyCode == 13) {//回车查询
+        searchBtn();
+    }else if(event.keyCode == 27){//ESC 重置高级查询条件
+        $("[name=keyword]").val("")
+        searchBtn();
+    }
+});
 function add() {
     $("#employee_dialog").dialog("open");
     $("#employee_dialog").dialog("setTitle", "新增")
@@ -127,4 +136,11 @@ function save() {
 
 function cancel() {
     $("#employee_dialog").dialog("close");
+}
+
+function searchBtn() {
+    var value = $("[name=keyword]").val();
+    $("#employee_datagrid").datagrid("load",{
+        keyword:value
+    });
 }

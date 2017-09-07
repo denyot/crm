@@ -39,7 +39,9 @@
         WHERE id = #{id,jdbcType=BIGINT}
     </update>
     <update id="updateState">
-        UPDATE employee set state = 0 WHERE id =#{id}
+        UPDATE employee
+        SET state = 0
+        WHERE id = #{id}
     </update>
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
     select id, username, realName, password, tel, email, dept_id, inputTime, admin, state
@@ -53,14 +55,21 @@
     <select id="login" resultMap="BaseResultMap">
     SELECT * from employee WHERE username=#{username} and password=#{password}
   </select>
-    <sql id="where_id"></sql>
-    <select id="queryForPageCount"  resultType="long">
+    <sql id="where_id">
+        <where>
+            <if test="keyword != null">
+                (username like  concat('%',#{keyword},'%')  OR realname LIKE  concat('%',#{keyword},'%') OR email LIKE concat('%',#{keyword},'%')
+                OR tel LIKE concat('%',#{keyword},'%'))
+            </if>
+        </where>
+    </sql>
+    <select id="queryForPageCount" resultType="long">
         select count(*) from employee
         <include refid="where_id"/>
     </select>
-    <select id="queryForPage"  resultMap="BaseResultMap">
-      select e.id, e.username, e.realName,e.tel, e.email, e.inputTime, e.admin, e.state ,d.id as d_id,d.name
-       as d_name from employee e LEFT JOIN department d on (e.dept_id=d.id)
+    <select id="queryForPage" resultMap="BaseResultMap">
+        select e.id, e.username, e.realName,e.tel, e.email, e.inputTime, e.admin, e.state ,d.id as d_id,d.name
+        as d_name from employee e LEFT JOIN department d on (e.dept_id=d.id)
         <include refid="where_id"/>
         <if test="page!=null">
                 limit #{start},#{rows}

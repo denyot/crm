@@ -32,7 +32,6 @@
     <script type="text/javascript">
         <%--回车登陆--%>
         $(document).keyup(function (event) {
-            console.log(event.keyCode)
             if (event.keyCode == 13) {
                 loginForm();
             }

@@ -23,7 +23,7 @@
     <a id="employee_datagrid_edit" class="easyui-linkbutton" iconCls='icon-edit' plain="true" onclick="edit()">编辑</a>
     <a class="easyui-linkbutton" iconCls='icon-reload' plain="true" onclick="reload()">刷新</a>
     <div>
-        关键字<input name="keyword"><a class="easyui-linkbutton" iconCls="icon-search">搜索</a>
+        关键字<input name="keyword" placeholder="账号/姓名/邮箱/电话/"><a class="easyui-linkbutton" iconCls="icon-search" onclick="searchBtn()">搜索</a>
     </div>
 </div>
 <div id="employee_dialog_btn">
