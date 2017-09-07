@@ -17,18 +17,18 @@
 <body>
 <table id="employee_datagrid"></table>
 <div id="employee_datagrid_btn">
-    <a class="easyui-linkbutton" iconCls='icon-add' plain="true" onclick="add()">增加</a>
+    <a class="easyui-linkbutton" iconCls='icon-add' plain="true" data-cmd="add">增加</a>
     <a id="employee_datagrid_remove" class="easyui-linkbutton" iconCls='icon-remove' plain="true"
-       onclick="remove()">离职</a>
-    <a id="employee_datagrid_edit" class="easyui-linkbutton" iconCls='icon-edit' plain="true" onclick="edit()">编辑</a>
-    <a class="easyui-linkbutton" iconCls='icon-reload' plain="true" onclick="reload()">刷新</a>
+       data-cmd="remove">离职</a>
+    <a id="employee_datagrid_edit" class="easyui-linkbutton" iconCls='icon-edit' plain="true" data-cmd="edit">编辑</a>
+    <a class="easyui-linkbutton" iconCls='icon-reload' plain="true" data-cmd="reload">刷新</a>
     <div>
-        关键字<input name="keyword" placeholder="账号/姓名/邮箱/电话/"><a class="easyui-linkbutton" iconCls="icon-search" onclick="searchBtn()">搜索</a>
+        关键字<input name="keyword" placeholder="账号/姓名/邮箱/电话/"><a class="easyui-linkbutton" iconCls="icon-search" data-cmd="searchBtn">搜索</a>
     </div>
 </div>
 <div id="employee_dialog_btn">
-    <a class="easyui-linkbutton" iconCls='icon-save' onclick="save()">保存</a>
-    <a class="easyui-linkbutton" iconCls='icon-cancel' onclick="cancel()">取消</a>
+    <a class="easyui-linkbutton" iconCls='icon-save' data-cmd="save">保存</a>
+    <a class="easyui-linkbutton" iconCls='icon-cancel' data-cmd="cancel">取消</a>
 </div>
 <div id="employee_dialog">
     <form id="employee_form" action="" method="post">
