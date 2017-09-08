@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.Map;
@@ -20,16 +21,16 @@ public class EmployeeController {
     private IEmployeeService employeeService;
 
     /**
-     * 登陆
      *
-     * @param username 账号
-     * @param password 密码
-     * @param session
+     * @param username
+     * @param password
+     * @param request
      * @return
      */
     @RequestMapping("/login")
     @ResponseBody
-    public Map<String, Object> login(String username, String password, HttpSession session) {
+    public Map<String, Object> login(String username, String password, HttpServletRequest request) {
+        UserContext.set(request);
         Map<String, Object> result = new HashMap<>();
         Employee currentUser = employeeService.login(username, password);
         if (currentUser == null) {
@@ -38,7 +39,7 @@ public class EmployeeController {
         } else {
             result.put("success", true);
             result.put("msg", "登陆成功");
-            session.setAttribute(UserContext.USERINSESSION, currentUser);
+            request.getSession().setAttribute(UserContext.USERINSESSION, currentUser);
         }
         return result;
     }

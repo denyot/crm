@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 public class LoginInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+        UserContext.set(request);
         Employee currentUser = (Employee) request.getSession().getAttribute(UserContext.USERINSESSION);
         if (currentUser == null) {
             response.sendRedirect("/login.jsp");
