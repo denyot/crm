@@ -44,6 +44,23 @@ $(function () {
         striped: true,
         rownumbers: true,
         singleSelect: true,
+        onDblClickRow: function (rowIndex, rowData) {
+            // 遍历selfPermission所有行,id不同则添加,相同则选中
+            var rows = selfPermission.datagrid().datagrid("getRows");
+            var flag = true;
+            var index = -1;
+            for (var i = 0; i < rows.length; i++) {
+                if (rowData.id == rows[i].id) {
+                    flag = false;
+                    index = i;
+                }
+            }
+            if (flag) {
+                selfPermission.datagrid().datagrid("appendRow", rowData);
+            } else {
+                selfPermission.datagrid().datagrid("selectRow", index);
+            }
+        },
         columns: [
             [
                 {field: 'name', title: '权限名称', width: 1, align: 'center'}
@@ -59,23 +76,19 @@ $(function () {
     selfPermission.datagrid({
         width: 300,
         height: 300,
-        pagination: true,
         title: '已有权限',
         fitColumns: true,
         striped: true,
         rownumbers: true,
         singleSelect: true,
+        onDblClickRow: function (rowIndex, rowData) {
+            selfPermission.datagrid().datagrid("deleteRow", rowIndex);
+        },
         columns: [
             [
                 {field: 'name', title: '权限名称', width: 1, align: 'center'}
             ]
         ]
-    });
-    var pager = selfPermission.datagrid().datagrid("getPager");
-    pager.pagination({
-        showPageList: false,
-        showRefresh: false,
-        displayMsg: ''
     });
     dialog.dialog({
         width: 700,

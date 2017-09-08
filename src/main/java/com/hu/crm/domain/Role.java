@@ -10,10 +10,7 @@ import java.util.List;
 @Setter
 public class Role {
     private Long id;
-
     private String sn;
-
     private String name;
     private List<Permission> permissions = new ArrayList<>();
-
 }
