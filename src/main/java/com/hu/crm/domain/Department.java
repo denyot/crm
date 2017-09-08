@@ -5,6 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
+//测试分支
 public class Department {
     private Long id;
 
