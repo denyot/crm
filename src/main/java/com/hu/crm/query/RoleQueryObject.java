@@ -4,10 +4,10 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * 封装员工查询条件
+ * 封装角色查询条件
  */
 @Getter
 @Setter
-public class EmployeeQueryObject extends QueryObject{
+public class RoleQueryObject {
     private String keyword;
 }

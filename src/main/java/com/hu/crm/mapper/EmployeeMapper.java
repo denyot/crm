@@ -19,11 +19,10 @@ public interface EmployeeMapper {
 
     Employee login(@Param("username") String username, @Param("password") String password);
 
+    void updateState(Long id);
 
     List<Employee> queryForPage(EmployeeQueryObject qo);
 
     Long queryForPageCount(EmployeeQueryObject qo);
-
-    void updateState(Long id);
 
 }
