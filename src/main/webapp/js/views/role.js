@@ -1,10 +1,9 @@
 $(function () {
-    var datagrid, dialog, form, keyword, datagrig_remove_edit, allPermission, selfPermission;
+    var datagrid, dialog, form, keyword,allPermission, selfPermission;
     datagrid = $('#role_datagrid');
     dialog = $("#role_dialog");
     form = $("#role_form");
     keyword = $("[name=keyword]");
-    datagrig_remove_edit = $("#role_datagrid_remove,#role_datagrid_edit");
     allPermission = $("#allPermission");
     selfPermission = $("#selfPermission");
     datagrid.datagrid({
@@ -19,13 +18,6 @@ $(function () {
         toolbar: '#role_datagrid_btn',
         pageList: [20, 30, 40, 50, 80, 100],
         pageSize: 40,
-        onClickRow: function (rowIndex, rowData) {
-            if (!rowData.state) {
-                datagrig_remove_edit.linkbutton("disable")
-            } else {
-                datagrig_remove_edit.linkbutton("enable")
-            }
-        },
         columns: [
             [
                 {field: 'name', title: '角色名称', width: 1, align: 'center'},
@@ -79,6 +71,7 @@ $(function () {
         title: '已有权限',
         fitColumns: true,
         striped: true,
+        pagination: true,
         rownumbers: true,
         singleSelect: true,
         onDblClickRow: function (rowIndex, rowData) {
@@ -89,6 +82,12 @@ $(function () {
                 {field: 'name', title: '权限名称', width: 1, align: 'center'}
             ]
         ]
+    });
+    var pager = selfPermission.datagrid("getPager");
+    pager.pagination({
+        showPageList: false,
+        showRefresh: false,
+        displayMsg: ''
     });
     dialog.dialog({
         width: 700,
@@ -101,7 +100,8 @@ $(function () {
         add: function () {
             dialog.dialog("open");
             dialog.dialog("setTitle", "新增")
-            form.form("clear");
+            $("input[name=name],[name=sn]").val("");
+            selfPermission.datagrid("loadData");
         },
 
         remove: function () {
@@ -126,15 +126,19 @@ $(function () {
 
         edit: function () {
             var rowData = datagrid.datagrid("getSelected");
-            console.log(rowData)
             if (rowData) {
                 dialog.dialog("open");
                 dialog.dialog("setTitle", "编辑")
-                form.form("clear");
+                $("input[name=name],[name=sn]").val("");
                 //特殊属性处理,默认是同名匹配
                 if (rowData.dept) {
                     rowData["dept.id"] = rowData.dept.id;
                 }
+                var options = selfPermission.datagrid("options");
+                options.url="/permission_selectByRoleId";
+                selfPermission.datagrid("load",{
+                    rid:rowData.id
+                });
                 form.form("load", rowData);
             } else {
                 $.messager.alert("温馨提示", "请选择要编辑的数据", "info");
@@ -196,7 +200,6 @@ $(function () {
     });
     //按键事件
     $(document).keyup(function (event) {
-        console.log(event.keyCode);
         if (event.keyCode == 13) {//回车查询
             cmdObj.searchBtn();
         } else if (event.keyCode == 27) {//ESC 重置高级查询条件

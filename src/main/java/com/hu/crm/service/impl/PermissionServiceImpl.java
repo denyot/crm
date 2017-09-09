@@ -53,5 +53,4 @@ public class PermissionServiceImpl implements IPermissionService {
         List<Permission> permissions = permissionMapper.queryForPage(qo);
         return new PageResult(count,permissions);
     }
-
 }

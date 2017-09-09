@@ -5,26 +5,33 @@
         <id column="id" property="id" jdbcType="BIGINT"/>
         <result column="sn" property="sn" jdbcType="VARCHAR"/>
         <result column="name" property="name" jdbcType="VARCHAR"/>
-        <collection property="permissions" ofType="com.hu.crm.domain.Permission">
-
-        </collection>
+       <!-- <collection property="permissions" ofType="com.hu.crm.domain.Permission">
+        </collection>-->
     </resultMap>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
         DELETE FROM role
         WHERE id = #{id,jdbcType=BIGINT}
+    </delete>
+    <delete id="deletePemissionById">
+        DELETE FROM role_permission WHERE r_id=#{rid}
     </delete>
     <insert id="insert" parameterType="com.hu.crm.domain.Role" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO role (sn, name)
         VALUES (#{sn,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR})
     </insert>
     <insert id="insertRelation">
-        INSERT INTO role_permission (r_id,p_id) VALUES (#{rid},#{pid})
+        INSERT INTO role_permission (r_id, p_id) VALUES (#{rid}, #{pid})
     </insert>
     <update id="updateByPrimaryKey" parameterType="com.hu.crm.domain.Role">
         UPDATE role
         SET sn   = #{sn,jdbcType=VARCHAR},
             name = #{name,jdbcType=VARCHAR}
         WHERE id = #{id,jdbcType=BIGINT}
+    </update>
+    <update id="updateRelation">
+        UPDATE role_permission
+        SET r_id = #{rid}, p_id = #{pid}
+        WHERE r_id = #{rid}
     </update>
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
     select id, sn, name
@@ -35,4 +42,19 @@
     select id, sn, name
     from role
   </select>
+    <sql id="where_id">
+        <where>
+        </where>
+    </sql>
+    <select id="queryForPageCount" resultType="long">
+        select count(*) from role
+        <include refid="where_id"/>
+    </select>
+    <select id="queryForPage" resultMap="BaseResultMap">
+        SELECT * FROM role
+        <include refid="where_id"/>
+        <if test="page!=null">
+            limit #{start},#{rows}
+        </if>
+    </select>
 </mapper>

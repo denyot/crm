@@ -49,6 +49,7 @@ public class RoleController {
             result.put("success", true);
             result.put("msg", "更新成功");
         } catch (Exception e) {
+            e.printStackTrace();
             result.put("success", false);
             result.put("msg", "更新异常,请联系管理员");
         }
@@ -63,6 +64,7 @@ public class RoleController {
             result.put("success", true);
             result.put("msg", "离职成功");
         } catch (Exception e) {
+            e.printStackTrace();
             result.put("success", false);
             result.put("msg", "离职异常,请联系管理员");
         }

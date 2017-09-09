@@ -39,6 +39,7 @@ public class PermissionController {
         }
         return result;
     }
+
     @RequestMapping("/permission_update")
     @ResponseBody
     public Map<String, Object> update(Permission permission) {
@@ -53,6 +54,7 @@ public class PermissionController {
         }
         return result;
     }
+
     @RequestMapping("/permission_delete")
     @ResponseBody
     public Map<String, Object> update(Long id) {
@@ -67,8 +69,16 @@ public class PermissionController {
         }
         return result;
     }
+
     @RequestMapping("/permission")
     public String permission() {
         return "permission";
+    }
+
+    @RequestMapping("/permission_selectByRoleId")
+    @ResponseBody
+    public PageResult selectByRoleId(PermissionQueryObject qo) {
+        PageResult result = permissionService.queryForPage(qo);
+        return result;
     }
 }

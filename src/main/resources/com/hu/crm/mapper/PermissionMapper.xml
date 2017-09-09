@@ -30,6 +30,11 @@
     from permission
   </select>
     <sql id="where_id">
+        <where>
+            <if test="rid!=null">
+                id in(SELECT p_id FROM role_permission WHERE r_id = #{rid})
+            </if>
+        </where>
     </sql>
     <select id="queryForPageCount" resultType="long">
         SELECT COUNT(*) FROM permission
