@@ -62,11 +62,11 @@ public class RoleController {
         try {
             roleService.deleteByPrimaryKey(id);
             result.put("success", true);
-            result.put("msg", "离职成功");
+            result.put("msg", "删除成功");
         } catch (Exception e) {
             e.printStackTrace();
             result.put("success", false);
-            result.put("msg", "离职异常,请联系管理员");
+            result.put("msg", "操作异常,请联系管理员");
         }
         return result;
     }

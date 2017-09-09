@@ -19,6 +19,7 @@ public class RoleServiceImpl implements IRoleService {
 
     @Override
     public int deleteByPrimaryKey(Long id) {
+        roleMapper.deletePemissionById(id);
         return roleMapper.deleteByPrimaryKey(id);
     }
 

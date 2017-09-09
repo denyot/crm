@@ -1,5 +1,5 @@
 $(function () {
-    var datagrid, dialog, form, keyword,allPermission, selfPermission;
+    var datagrid, dialog, form, keyword, allPermission, selfPermission;
     datagrid = $('#role_datagrid');
     dialog = $("#role_dialog");
     form = $("#role_form");
@@ -18,6 +18,9 @@ $(function () {
         toolbar: '#role_datagrid_btn',
         pageList: [20, 30, 40, 50, 80, 100],
         pageSize: 40,
+        onDblClickRow: function () {
+            cmdObj.edit();
+        },
         columns: [
             [
                 {field: 'name', title: '角色名称', width: 1, align: 'center'},
@@ -101,13 +104,13 @@ $(function () {
             dialog.dialog("open");
             dialog.dialog("setTitle", "新增")
             $("input[name=name],[name=sn]").val("");
-            selfPermission.datagrid("loadData");
+            selfPermission.datagrid("loadData", {rows: []});
         },
 
         remove: function () {
             var rowData = datagrid.datagrid("getSelected");
             if (rowData) {
-                $.messager.confirm("温馨提示", "确定该角色已离职吗", function (yes) {
+                $.messager.confirm("温馨提示", "确定吗", function (yes) {
                     if (yes) {
                         $.get("role_delete?id=" + rowData.id, function (data) {
                             if (data.success) {
@@ -120,7 +123,7 @@ $(function () {
                     }
                 });
             } else {
-                $.messager.alert("温馨提示", "请选择要离职的角色", "info");
+                $.messager.alert("温馨提示", "请选择", "info");
             }
         },
 
@@ -135,9 +138,9 @@ $(function () {
                     rowData["dept.id"] = rowData.dept.id;
                 }
                 var options = selfPermission.datagrid("options");
-                options.url="/permission_selectByRoleId";
-                selfPermission.datagrid("load",{
-                    rid:rowData.id
+                options.url = "/permission_selectByRoleId";
+                selfPermission.datagrid("load", {
+                    rid: rowData.id
                 });
                 form.form("load", rowData);
             } else {
@@ -200,11 +203,17 @@ $(function () {
     });
     //按键事件
     $(document).keyup(function (event) {
-        if (event.keyCode == 13) {//回车查询
-            cmdObj.searchBtn();
-        } else if (event.keyCode == 27) {//ESC 重置高级查询条件
-            keyword.val("");
-            cmdObj.searchBtn();
+        console.log(event.keyCode);
+        switch (event.keyCode) {
+            case 13://回车查询
+                cmdObj.searchBtn();
+                break;
+            case 27://ESC 重置高级查询条件
+                keyword.val("");
+                cmdObj.searchBtn();
+                break;
+            case 46://删除选中
+                cmdObj.remove();
         }
     });
 });
