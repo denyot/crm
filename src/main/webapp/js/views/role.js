@@ -103,7 +103,7 @@ $(function () {
         add: function () {
             dialog.dialog("open");
             dialog.dialog("setTitle", "新增")
-            $("input[name=name],[name=sn]").val("");
+            $("input[name=name],[name=sn],[name=id]").val("");
             selfPermission.datagrid("loadData", {rows: []});
         },
 
