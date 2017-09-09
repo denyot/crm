@@ -5,6 +5,8 @@
        xmlns:aop="http://www.springframework.org/schema/aop" xmlns:mvc="http://www.springframework.org/schema/mvc"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 			http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+    <!--导入spring mvc 配置文件,因为在web.xml中配置了默认加载applicationContext,这边要导入一下,不然无法加载spring mvc的配置文件-->
+    <import resource="classpath:springMVC.xml"/>
     <!-- 0.获取数据库配置文件 -->
     <context:property-placeholder location="classpath:jdbc.properties"/>
     <!-- 1.配置数据连接池 -->
@@ -43,25 +45,17 @@
         </tx:attributes>
     </tx:advice>
     <!--5.aop相关配置-->
-    <bean class="com.hu.crm.util.LogUtil" id="logUtil"/>
     <aop:config>
         <aop:advisor advice-ref="txAdvice" pointcut="execution(* com.hu.crm.service.*Service.*(..))"/>
-        <aop:aspect ref="logUtil">
-            <aop:after method="writeLog" pointcut="execution(* com.hu.crm.service.*Service.*(..))"/>
-        </aop:aspect>
     </aop:config>
     <!--6.注解相关-->
     <!--开启注解扫描-->
     <context:component-scan base-package="com.hu.crm"/>
-    <!--注解解析器-->
-    <context:annotation-config/>
-    <!--注解驱动-->
-    <mvc:annotation-driven/>
+    <!--aop自动代理-->
+    <aop:aspectj-autoproxy proxy-target-class="true"/>
     <!--7.开启mapper接口扫描器，并注入sqlSession-->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
         <property name="basePackage" value="com.hu.crm.mapper"/>
         <property name="sqlSessionFactoryBeanName" value="sqlSession"/>
     </bean>
-    <!--导入spring mvc 配置文件,因为在web.xml中配置了默认加载applicationContext,这边要导入一下,不然无法加载spring mvc的配置文件-->
-    <import resource="classpath:springMVC.xml"/>
 </beans>
