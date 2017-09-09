@@ -1,42 +1,49 @@
 package com.hu.crm.service.impl;
 
+import com.hu.crm.domain.Permission;
 import com.hu.crm.domain.Role;
+import com.hu.crm.mapper.RoleMapper;
 import com.hu.crm.page.PageResult;
 import com.hu.crm.query.RoleQueryObject;
 import com.hu.crm.service.IRoleService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
 @Service
 public class RoleServiceImpl implements IRoleService {
+    @Autowired
+    private RoleMapper roleMapper;
+
     @Override
     public int deleteByPrimaryKey(Long id) {
-        return 0;
+        return roleMapper.deleteByPrimaryKey(id);
     }
 
     @Override
     public int insert(Role record) {
-        return 0;
+        int affectCount = roleMapper.insert(record);
+        List<Permission> permissions = record.getPermissions();
+        for (Permission permission : permissions) {
+            roleMapper.insertRelation(record.getId(), permission.getId());
+        }
+        return affectCount;
     }
 
     @Override
     public Role selectByPrimaryKey(Long id) {
-        return null;
+        return roleMapper.selectByPrimaryKey(id);
     }
 
     @Override
     public List<Role> selectAll() {
-        return null;
+        return roleMapper.selectAll();
     }
 
     @Override
     public int updateByPrimaryKey(Role record) {
-        return 0;
-    }
-
-    @Override
-    public Role login(String username, String password) {
-        return null;
+        return roleMapper.updateByPrimaryKey(record);
     }
 
     @Override
@@ -44,8 +51,5 @@ public class RoleServiceImpl implements IRoleService {
         return null;
     }
 
-    @Override
-    public void updateState(Long id) {
 
-    }
 }

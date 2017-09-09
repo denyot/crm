@@ -17,10 +17,7 @@ public interface IRoleService {
 
     int updateByPrimaryKey(Role record);
 
-    Role login(String username, String password);
-
     PageResult queryForPage(RoleQueryObject qo);
 
-    void updateState(Long id);
 
 }

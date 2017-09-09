@@ -19,7 +19,7 @@
 <div id="role_datagrid_btn">
     <a class="easyui-linkbutton" iconCls='icon-add' plain="true" data-cmd="add">增加</a>
     <a id="role_datagrid_remove" class="easyui-linkbutton" iconCls='icon-remove' plain="true"
-       data-cmd="remove">离职</a>
+       data-cmd="remove">删除</a>
     <a id="role_datagrid_edit" class="easyui-linkbutton" iconCls='icon-edit' plain="true" data-cmd="edit">编辑</a>
     <a class="easyui-linkbutton" iconCls='icon-reload' plain="true" data-cmd="reload">刷新</a>
     <div>

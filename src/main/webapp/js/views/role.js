@@ -46,7 +46,7 @@ $(function () {
         singleSelect: true,
         onDblClickRow: function (rowIndex, rowData) {
             // 遍历selfPermission所有行,id不同则添加,相同则选中
-            var rows = selfPermission.datagrid().datagrid("getRows");
+            var rows = selfPermission.datagrid("getRows");
             var flag = true;
             var index = -1;
             for (var i = 0; i < rows.length; i++) {
@@ -56,9 +56,9 @@ $(function () {
                 }
             }
             if (flag) {
-                selfPermission.datagrid().datagrid("appendRow", rowData);
+                selfPermission.datagrid("appendRow", rowData);
             } else {
-                selfPermission.datagrid().datagrid("selectRow", index);
+                selfPermission.datagrid("selectRow", index);
             }
         },
         columns: [
@@ -67,7 +67,7 @@ $(function () {
             ]
         ]
     });
-    var pager = allPermission.datagrid().datagrid("getPager");
+    var pager = allPermission.datagrid("getPager");
     pager.pagination({
         showPageList: false,
         showRefresh: false,
@@ -82,7 +82,7 @@ $(function () {
         rownumbers: true,
         singleSelect: true,
         onDblClickRow: function (rowIndex, rowData) {
-            selfPermission.datagrid().datagrid("deleteRow", rowIndex);
+            selfPermission.datagrid("deleteRow", rowIndex);
         },
         columns: [
             [
@@ -156,6 +156,13 @@ $(function () {
             }
             form.form("submit", {
                 url: url,
+                onSubmit: function (params) {
+                    var rows = selfPermission.datagrid("getRows");
+                    for (var i = 0; i < rows.length; i++) {
+                        params["permissions[" + i + "].id"] = rows[i].id;
+
+                    }
+                },
                 success: function (data) {
                     data = eval('(' + data + ')');
                     if (data.success) {
@@ -199,19 +206,6 @@ $(function () {
     });
 });
 
-function deptFormatter(value, row, index) {
-    if (value) {
-        return value.name;
-    }
-    return value;
-}
-
-function stateFormatter(value, row, index) {
-    if (value) {
-        return "<font color=\"green\">" + "正常" + "</font>";
-    }
-    return "<font color=\"red\">" + "离职" + "</font>";
-}
 
 
 

@@ -34,6 +34,7 @@ public class RoleController {
             result.put("success", true);
             result.put("msg", "保存成功");
         } catch (Exception e) {
+            e.printStackTrace();
             result.put("success", false);
             result.put("msg", "保存异常请联系管理员");
         }
@@ -58,7 +59,7 @@ public class RoleController {
     public Map<String, Object> update(Long id) {
         Map<String, Object> result = new HashMap<>();
         try {
-            roleService.updateState(id);
+            roleService.deleteByPrimaryKey(id);
             result.put("success", true);
             result.put("msg", "离职成功");
         } catch (Exception e) {
