@@ -68,8 +68,21 @@
 					method:'get',
 					valueField:'id',
 					textField:'name',
-					panelHeight:'auto'
-			">
+					panelHeight:'auto'">
+                </td>
+            </tr>
+            <tr>
+                <td>角色</td>
+                <td>
+                    <input id="empl_roles" class="easyui-combobox"
+                           data-options="
+					url:'/role_selectAll',
+					method:'get',
+					valueField:'id',
+					textField:'name',
+					panelHeight:'auto',
+                    multiple:'true'
+                    ">
                 </td>
             </tr>
         </table>

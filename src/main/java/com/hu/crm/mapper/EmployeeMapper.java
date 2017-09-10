@@ -25,4 +25,8 @@ public interface EmployeeMapper {
 
     Long queryForPageCount(EmployeeQueryObject qo);
 
+    void insertRelation(@Param("eid") Long eid, @Param("rid") Long rid);
+
+    List<Long> queryByEid();
+
 }

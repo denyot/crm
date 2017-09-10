@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -40,6 +41,7 @@ public class RoleController {
         }
         return result;
     }
+
     @RequestMapping("/role_update")
     @ResponseBody
     public Map<String, Object> update(Role role) {
@@ -55,6 +57,7 @@ public class RoleController {
         }
         return result;
     }
+
     @RequestMapping("/role_delete")
     @ResponseBody
     public Map<String, Object> update(Long id) {
@@ -70,6 +73,13 @@ public class RoleController {
         }
         return result;
     }
+
+    @RequestMapping("/role_selectAll")
+    @ResponseBody
+    public List selectAll() {
+        return roleService.selectAll();
+    }
+
     @RequestMapping("/role")
     public String role() {
         return "role";

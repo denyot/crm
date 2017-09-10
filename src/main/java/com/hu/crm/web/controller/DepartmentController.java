@@ -18,4 +18,9 @@ public class DepartmentController {
     public List selectAll() {
         return departmentService.selectAll();
     }
+
+    @RequestMapping("/department")
+    public String department() {
+        return "department";
+    }
 }

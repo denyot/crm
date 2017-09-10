@@ -5,7 +5,10 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+
 @Getter
 @Setter
 public class Employee {
@@ -21,13 +24,15 @@ public class Employee {
 
     private String email;//邮箱
 
-    private Department dept;//部门
-    @JsonFormat(pattern ="yyyy-MM-dd",timezone = "GMT+8")
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date inputtime;//入职时间
 
     private Boolean admin;//是否超级管理员
 
     private Boolean state;//在职状态
+    private Department dept;//部门
+    private List<Role> roles = new ArrayList<>();
+
 
 }

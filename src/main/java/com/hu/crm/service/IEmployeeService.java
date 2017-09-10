@@ -22,4 +22,6 @@ public interface IEmployeeService {
 
     void updateState(Long id);
 
+    List<Long> queryByEid(Long eid);
+
 }

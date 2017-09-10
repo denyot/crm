@@ -25,4 +25,5 @@ public interface RoleMapper {
 
     void deletePemissionById(Long rid);
 
+
 }

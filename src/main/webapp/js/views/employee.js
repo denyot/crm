@@ -1,5 +1,5 @@
 $(function () {
-    var empl_datagrid, empl_dialog, empl_form, keyword,datagrig_remove_edit;
+    var empl_datagrid, empl_dialog, empl_form, keyword, datagrig_remove_edit;
     empl_datagrid = $('#employee_datagrid');
     empl_dialog = $("#employee_dialog");
     empl_form = $("#employee_form");
@@ -33,13 +33,14 @@ $(function () {
                 {field: 'dept', title: '部门', width: 1, align: 'center', formatter: deptFormatter},
                 {field: 'inputtime', title: '入职时间', width: 1, align: 'center'},
                 {field: 'state', title: '状态', width: 1, align: 'center', formatter: stateFormatter},
-                {field: 'admin', title: '是否超级管理员', width: 1, align: 'center'}
+                {field: 'admin', title: '是否超级管理员', width: 1, align: 'center',formatter: adminFormatter},
+                {field: 'roles', title: '角色', width: 1, align: 'center'}
             ]
         ]
     });
     empl_dialog.dialog({
         width: 250,
-        height: 320,
+        height: 400,
         buttons: '#employee_dialog_btn',
         closed: true
     });
@@ -73,10 +74,10 @@ $(function () {
 
         edit: function () {
             var rowData = empl_datagrid.datagrid("getSelected");
-            console.log(rowData)
+            console.log(rowData);
             if (rowData) {
                 empl_dialog.dialog("open");
-                empl_dialog.dialog("setTitle", "编辑")
+                empl_dialog.dialog("setTitle", "编辑");
                 empl_form.form("clear");
                 //特殊属性处理,默认是同名匹配
                 if (rowData.dept) {
@@ -103,6 +104,13 @@ $(function () {
             }
             empl_form.form("submit", {
                 url: url,
+                onSubmit: function (param) {
+                    var ids = $("#empl_roles").combobox("getValues");
+                    for (var i = 0; i < ids.length; i++) {
+                        var obj = ids[i];
+                        param["roles[" + i + "].id"] = obj;
+                    }
+                },
                 success: function (data) {
                     data = eval('(' + data + ')');
                     if (data.success) {
@@ -151,6 +159,19 @@ function deptFormatter(value, row, index) {
         return value.name;
     }
     return value;
+}
+function adminFormatter(value, row, index) {
+    if (value) {
+        return "是";
+    }
+    return "否";
+}
+
+function rolesFormatter(value, row, index) {
+    if (value) {
+        return row;
+    }
+    return row;
 }
 
 function stateFormatter(value, row, index) {

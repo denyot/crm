@@ -1,6 +1,7 @@
 package com.hu.crm.service.impl;
 
 import com.hu.crm.domain.Employee;
+import com.hu.crm.domain.Role;
 import com.hu.crm.mapper.EmployeeMapper;
 import com.hu.crm.page.PageResult;
 import com.hu.crm.query.EmployeeQueryObject;
@@ -23,7 +24,12 @@ public class EmployeeServiceImpl implements IEmployeeService {
 
     @Override
     public int insert(Employee record) {
-        return employeeMapper.insert(record);
+        int insert = employeeMapper.insert(record);
+        List<Role> roles = record.getRoles();
+        for (Role role : roles) {
+            employeeMapper.insertRelation(record.getId(), role.getId());
+        }
+        return insert;
     }
 
     @Override
@@ -51,16 +57,21 @@ public class EmployeeServiceImpl implements IEmployeeService {
     public PageResult queryForPage(EmployeeQueryObject qo) {
         //查询结果数
         Long count = employeeMapper.queryForPageCount(qo);
-        if (count ==0){
+        if (count == 0) {
             return new PageResult(0L, Collections.EMPTY_LIST);
         }
         //查询结果集
         List<Employee> employees = employeeMapper.queryForPage(qo);
-        return new PageResult(count,employees);
+        return new PageResult(count, employees);
     }
 
     @Override
     public void updateState(Long id) {
         employeeMapper.updateState(id);
+    }
+
+    @Override
+    public List<Long> queryByEid(Long eid) {
+        return employeeMapper.queryByEid();
     }
 }

@@ -15,18 +15,23 @@
             <id column="id" property="id"/>
             <result column="name" property="name"/>
         </association>
+        <collection property="roles" ofType="com.hu.crm.domain.Role" columnPrefix="r_">
+            <id column="id" property="name"/>
+            <result column="name" property="name"/>
+        </collection>
     </resultMap>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
         DELETE FROM employee
         WHERE id = #{id,jdbcType=BIGINT}
     </delete>
     <insert id="insert" parameterType="com.hu.crm.domain.Employee" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO employee (username, realName, password,
-                              tel, email, dept_id,
-                              inputTime, admin, state)
+        INSERT INTO employee (username, realName, password, tel, email, dept_id, inputTime, admin, state)
         VALUES (#{username,jdbcType=VARCHAR}, #{realname,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
                 #{tel,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{dept.id,jdbcType=BIGINT},
                 #{inputtime,jdbcType=DATE}, #{admin,jdbcType=BIT}, #{state,jdbcType=BIT})
+    </insert>
+    <insert id="insertRelation" parameterType="long">
+        INSERT INTO employee_role (e_id, r_id) VALUES (#{eid}, #{rid})
     </insert>
     <update id="updateByPrimaryKey" parameterType="com.hu.crm.domain.Employee">
         UPDATE employee
@@ -69,10 +74,13 @@
     </select>
     <select id="queryForPage" resultMap="BaseResultMap">
         select e.id, e.username, e.realName,e.tel, e.email, e.inputTime, e.admin, e.state ,d.id as d_id,d.name
-        as d_name from employee e LEFT JOIN department d on (e.dept_id=d.id)
+        as d_name, r.id AS r_id ,r.name as r_name from employee e LEFT JOIN department d on (e.dept_id=d.id) LEFT JOIN employee_role m ON (e.id=m.e_id) LEFT JOIN role r ON (r.id=m.r_id)
         <include refid="where_id"/>
         <if test="page!=null">
                 limit #{start},#{rows}
         </if>
+    </select>
+    <select id="queryByEid" resultType="long">
+        SELECT r_id FROM employee_role WHERE e_id = #{eid};
     </select>
 </mapper>

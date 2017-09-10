@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -21,7 +21,6 @@ public class EmployeeController {
     private IEmployeeService employeeService;
 
     /**
-     *
      * @param username
      * @param password
      * @param request
@@ -63,11 +62,13 @@ public class EmployeeController {
             result.put("success", true);
             result.put("msg", "保存成功");
         } catch (Exception e) {
+            e.printStackTrace();
             result.put("success", false);
             result.put("msg", "保存异常请联系管理员");
         }
         return result;
     }
+
     @RequestMapping("/employee_update")
     @ResponseBody
     public Map<String, Object> update(Employee employee) {
@@ -82,6 +83,7 @@ public class EmployeeController {
         }
         return result;
     }
+
     @RequestMapping("/employee_delete")
     @ResponseBody
     public Map<String, Object> update(Long id) {
@@ -103,13 +105,16 @@ public class EmployeeController {
         return "index";
     }
 
-    @RequestMapping("/department")
-    public String department() {
-        return "department";
-    }
 
     @RequestMapping("/employee")
     public String employee() {
         return "employee";
+    }
+
+    @RequestMapping("/role_queryByEid")
+    @ResponseBody
+    public List<Long> queryByEid(Long eid) {
+        List<Long> result = employeeService.queryByEid(eid);
+        return result;
     }
 }

@@ -18,6 +18,4 @@ public interface IRoleService {
     int updateByPrimaryKey(Role record);
 
     PageResult queryForPage(RoleQueryObject qo);
-
-
 }

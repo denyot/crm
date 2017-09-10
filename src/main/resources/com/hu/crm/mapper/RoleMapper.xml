@@ -5,15 +5,16 @@
         <id column="id" property="id" jdbcType="BIGINT"/>
         <result column="sn" property="sn" jdbcType="VARCHAR"/>
         <result column="name" property="name" jdbcType="VARCHAR"/>
-       <!-- <collection property="permissions" ofType="com.hu.crm.domain.Permission">
-        </collection>-->
+        <!-- <collection property="permissions" ofType="com.hu.crm.domain.Permission">
+         </collection>-->
     </resultMap>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
         DELETE FROM role
         WHERE id = #{id,jdbcType=BIGINT}
     </delete>
     <delete id="deletePemissionById">
-        DELETE FROM role_permission WHERE r_id=#{rid}
+        DELETE FROM role_permission
+        WHERE r_id = #{rid}
     </delete>
     <insert id="insert" parameterType="com.hu.crm.domain.Role" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO role (sn, name)

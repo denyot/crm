@@ -65,6 +65,4 @@ public class RoleServiceImpl implements IRoleService {
         List<Role> roles = roleMapper.queryForPage(qo);
         return new PageResult(count,roles);
     }
-
-
 }
