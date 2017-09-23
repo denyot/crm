@@ -12,6 +12,7 @@
         <maven.compiler.target>1.8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <spring.version>4.1.2.RELEASE</spring.version>
+        <org.mybatis.version>3.4.5</org.mybatis.version>
     </properties>
     <dependencies>
         <!--单元测试-->
@@ -175,7 +176,7 @@
         <dependency>
             <groupId>org.mybatis</groupId>
             <artifactId>mybatis</artifactId>
-            <version>3.4.5</version>
+            <version>${org.mybatis.version}</version>
         </dependency>
         <!--mybatis  spring集成-->
         <dependency>
